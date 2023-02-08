@@ -6,7 +6,7 @@ metadata:
 spec:
   containers:
     - name: jenkins-pod
-      image: jenkins/jenkins:jenkins:lts-jdk11
+      image: jenkins/jenkins:lts-jdk11
       ports:
         - containerPort: 8080
           protocol: TCP
