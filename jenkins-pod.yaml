@@ -9,6 +9,7 @@ spec:
       image: jenkins/jenkins
       ports:
         - containerPort: 8080
+          hostPort: 8081
           protocol: TCP
           
             
