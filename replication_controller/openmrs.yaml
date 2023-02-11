@@ -1,0 +1,23 @@
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: openmrsapp
+spec:
+  minReadySeconds: 3
+  replicas: 5
+  selector:
+    version: "1.0"
+  template:
+    metadata:
+      name: openmrs
+      labels:
+        app: openmrsapp
+        version: "1.0"
+    spec:
+      containers:
+        - name: openmrscont
+          image: maheshryali/openmrs:1.0
+          ports:
+            - containerPort: 8080
+              protocol: TCP      
