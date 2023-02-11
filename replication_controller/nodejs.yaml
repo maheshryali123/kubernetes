@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+kind: ReplicationController
+metadata: 
+  name: nodejs
+spec:
+  minReadySeconds: 4
+  replicas: 5
+  selector: 
+    app: nodejs
+    version: "v1.0"
+  template:
+    metadata:
+      name: nodejsapp
+      labels:
+        app: nodejs
+        version: "v1.0"
+    spec:
+      containers:
+        - name: nodejs
+          image: maheshryali/nodejs:1.0    
+            
