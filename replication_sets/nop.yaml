@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nop-commerce
+  labels: 
+    app: nop-commerce
+spec:
+  minReadySeconds: 3
+  replicas: 4
+  selector: 
+    matchExpressions:
+      - key: app
+        operator: In 
+        values: 
+          - nopcommerce
+      - key: version
+        operator: In
+        values: 
+          - "1.0"
+    matchLabels:
+      app: nopcommerce
+      version: "1.0"
+  template:
+    metadata:
+      name: nopcommerce
+      labels:
+        app: nopcommerce
+        version: "1.0"
+    spec:
+      containers:
+        - name: nop-commerce
+          image: maheshryali/nopcommerce:1.0
+          ports:
+            - containerPort: 80
+              protocol: TCP        

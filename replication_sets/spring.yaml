@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: ReplicaSet
+metadata: 
+  name: spring-petclinic
+  labels:
+    name: spring
+    version: "1.0"
+spec:
+  minReadySeconds: 3
+  replicas: 4
+  selector:
+    matchLabels:
+      app: spring
+      version: "1.0"
+  metadata:
+    name: spring-petclinic
+    labels: 
+      name: spring-petclinic
+      version: "1.0"
+      spec:
+        containers:
+          - name: spring-petclinic
+            image: spring:1.0
+            ports:
+              - containerPort: 8080
+                protocol: TCP
+                
+
+
