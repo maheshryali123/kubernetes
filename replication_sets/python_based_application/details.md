@@ -1,0 +1,3 @@
+## Requirement.txt file in python
+During the development of a specific project, libraries, packages, and modules are typically listed in a requirement.txt file, a type of file in Python. It also keeps track of all the files and programs needed for the project to function or on which it depends. In most cases, your project’s root directory is where the file “requirement.txt” is kept (or is located). The reason why we require this kind of file in our projects is raised here, which is yet another crucial question.
+https://linuxhint.com/python-requirements-txt-file/#:~:text=Definition%20of%20requirement.&text=txt%20file%2C%20a%20type%20of,kept%20(or%20is%20located).

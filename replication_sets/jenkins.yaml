@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: jenkins
+spec:
+  minReadySeconds: 3
+  replicas: 4
+  selector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - jenkins
+      - key: app2
+        operator: In
+        values:
+          - alpine    
+  template:
+    metadata:
+      name: jenkins-alpine
+      labels: 
+        app: jenkins
+        app2: alpine
+    spec:
+      initContainers:
+        - name: alpine
+          image: alpine
+          command: [ "ping", "-c", "4", "google.com"]
+      containers:
+        - name: jenkins
+          image: jenkins/jenkins:lts-jdk11
+          ports:
+            - containerPort: 8080
+              protocol: TCP      
+                
+
+        
