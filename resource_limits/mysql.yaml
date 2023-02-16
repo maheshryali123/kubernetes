@@ -41,3 +41,10 @@ spec:
               value: mahesh
             - name: MYSQL_DATABASE
               value: project                
+          resources:
+            requests:
+              memory: "64Mi"  
+              cpu: "250m"  
+            limits: 
+              memory: "128Mi"
+              cpu: "500m"  
