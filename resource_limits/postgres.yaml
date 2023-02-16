@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: postgresql
+  labels:
+    app: postgresql
+spec:
+  minReadySeconds: 4
+  replicas: 5
+  selector:
+    matchLabels:
+      app: postgresql
+      version: "1.0"
+  template:
+    metadata: 
+      name: postgresql
+      labels: 
+       app: postgresql
+       version: "1.0"
+    spec:
+      containers:
+        - name: postgres
+          image: bitnami/postgresql
+          ports:
+            - containerPort: 5432
+          resources:
+            requests:
+              memory: 128Ki
+          env:
+            - name: POSTGRESQL_USERNAME
+              value: mahesh
+            - name: POSTGRESQL_PASSWORD
+              value: mahesh
+            - name: POSTGRESQL_DATABASE
+              value: postgresqldatabase    
+                  
