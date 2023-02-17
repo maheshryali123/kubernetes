@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: DeamonSet
+metadata: 
+  name: alpine
+  labels:
+    app: alpine
+    version: "1.0"
+spec:
+  minReadySeconds: 3
+  replicas: 3
+  selector:
+    matchLabels:
+      app: alpine
+      version: "1.0"
+  template:
+    metadata:
+      name: alpine
+      labels:
+        app: alpine
+        version: "1.0"
+    spec:
+      containers:
+        - name: alpine
+          image: alpine
+          command:
+            - sleep 1d
+                  
