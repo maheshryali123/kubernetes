@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: saleordashboard
+spec:
+  minReadySeconds: 3
+  replicas: 4
+  selector:
+    matchLabels:
+      app: saleordashboard
+      version: "v1.0"
+  template:
+    metadata:
+      name: saleordashboard
+      labels:
+        app: saleordashboard
+        version: "v1.0"
+    spec:
+      containers:
+        - name: saleordashboardapp
+          image: maheshryali/saleordashboard:1.0
+          ports:
+            - containerPort: 80
+              protocol: TCP          
