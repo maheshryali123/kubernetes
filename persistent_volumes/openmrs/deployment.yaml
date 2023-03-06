@@ -1,0 +1,75 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+  namespace: dev
+
+---  
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openmrs-deploy
+  namespace: dev
+spec:
+  minReadySeconds: 4
+  replicas: 4
+  selector:
+    matchLabels:
+      app: openmrs
+      version: "v1.0"
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      name: openmrs
+      labels:
+        app: openmrs
+        version: "v1.0"
+    spec:
+      containers:
+        - name: openmrs
+          image: maheshryali/openmrs:1.0
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openmrs-svc
+  namespace: dev
+spec:
+  type: LoadBalancer
+  selector:
+    app: openmrs
+  ports:
+    - targetPort: 8080
+      port: 35001 
+      protocol: TCP   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
