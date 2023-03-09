@@ -2,9 +2,10 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: gameoflife
+  name: openmrs
+  namespace: health-check
   labels:
-    app: gameoflife
+    app: openmrs
     version: "1.0"
 spec:
   minReadySeconds: 3
@@ -14,19 +15,22 @@ spec:
       - key: app
         operator: In
         values:
-          - gameoflife
+          - openmrs
   template:
     metadata:
-      name: gameoflife  
+      name: openmrs  
       labels:
-        app: gameoflife
+        app: openmrs
         version: "1.0"
     spec:
       containers:
-        - name: gameoflife
-          image: maheshryali/gameoflife:1.0
+        - name: openmrs
+          image: 389485504177.dkr.ecr.us-east-1.amazonaws.com/opemmrs:latest
           ports:
             - containerPort: 8080
+          imagePullPolicy: Always
+      imagePullSecrets:
+        - name: regcred      
 
 ---
 apiVersion: v1
@@ -34,16 +38,15 @@ kind: Service
 metadata: 
   name: service
 spec:
-  type: NodePort  
+  type: LoadBalancer 
   selector:
-    app: gameoflife
+    app: openmrs
     version: "1.0"
   ports:
     - name: webport
       targetPort: 8080
-      nodePort: 32500
       protocol: TCP  
-      port: 35000
+      port: 35010
 
 
 
