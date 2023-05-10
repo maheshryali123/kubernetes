@@ -1,0 +1,54 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+---  
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openmrs-deployment
+  #namespace: dev
+spec:
+  minReadySeconds: 3
+  replicas: 2
+  selector: 
+    matchLabels:
+      app: openmrs
+      version: "1.0"
+  strategy: 
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: openmrs
+        version: "1.0"
+    spec:
+      containers:
+        - ports:
+            - containerPort: 8080
+              protocol: "TCP"
+          image: 389485504177.dkr.ecr.us-east-1.amazonaws.com/opemmrs:latest
+          name: openmrs
+      imagePullSecrets: 
+        - name: regcred
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-openmrs
+  #namespace: dev
+spec: 
+  ports:
+    - nodePort: 32000
+      port: 35000
+      targetPort: 8080
+  selector: 
+    app: openmrs
+  type: NodePort    
+
+
+              
