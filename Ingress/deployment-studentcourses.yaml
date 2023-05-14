@@ -7,7 +7,7 @@ spec:
   minReadySeconds: 2
   replicas: 2
   selector:
-    matchLables:
+    matchLabels:
       app: studentcourses
       version: "1.0.0"
   strategy:
@@ -26,5 +26,5 @@ spec:
         - name: studentcourses
           image: maheshryali/studentcourses:1.0
           ports:
-            - containerport: 8080
+            - containerPort: 8080
               protocol: TCP            
