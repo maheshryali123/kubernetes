@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-saleor
+spec:
+  minReadySeconds: 3
+  replicas: 2
+  selector:
+    matchLabels:
+      app: saleor-dashboard
+      version: "1.0.0"
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      name: saleor-dashboard
+      labels:
+        app: saleor-dashboard
+        version: "1.0.0"
+    spec:
+      containers:
+        - name: saleor-dashboard
+          image: maheshryali/saleor-dashboard:1.0
+          ports:
+            - containerPort: 80
+              protocol: TCP            

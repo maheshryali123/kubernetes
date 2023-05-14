@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-deployment
+spec:
+  minReadySeconds: 2
+  replicas: 2
+  selector:
+    matchLables:
+      app: studentcourses
+      version: "1.0.0"
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      name: studentcourses
+      labels:
+        app: studentcourses
+        version: "1.0.0"
+    spec:
+      containers:
+        - name: studentcourses
+          image: maheshryali/studentcourses:1.0
+          ports:
+            - containerport: 8080
+              protocol: TCP            

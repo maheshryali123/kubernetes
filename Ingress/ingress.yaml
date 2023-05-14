@@ -1,0 +1,25 @@
+---
+apiversion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  name: ingress
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /studentcourses(/|$)(.*)
+            pathType: Prefix
+            backend: 
+              service:
+                name: student-svc
+                port: 8080
+          - path: /saleordashboard(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service: 
+                name: saleor-svc
+                port: 80  

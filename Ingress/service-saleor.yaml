@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: saleor-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: saleor-dashboard
+  ports:
+    - targetPort: 80
+      port: 35000
+        
