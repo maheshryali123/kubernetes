@@ -7,12 +7,13 @@ spec:
   minReadySeconds: 3
   replicas: 4
   selector:
-    app: openmrs
-    version: "1.0.0"
+    matchlabels:
+      app: openmrs
+      version: "1.0.0"
   strategy:
     rollingUpdate:
       maxSurge: 25%
-      maxUavailable: 25%
+      maxUnavailable: 25%
     type: RollingUpdate
   template:
     metadata:
