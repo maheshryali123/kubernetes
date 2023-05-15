@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-openmrs
+spec:
+  minReadySeconds: 3
+  replicas: 4
+  selector:
+    app: openmrs
+    version: "1.0.0"
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      name: openmrs
+      labels: 
+        app: openmrs
+        version: "1.0.0"
+    spec:
+      containers:
+        - name: openmrs
+          image: maheshryali/openmrs:1.0
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              memory: "50Mi"
+              cpu: "250m"
+            limits:
+              memory: "100Mi"
+              cpu: "500m"  
